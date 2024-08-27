@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanzy Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showCategory('home')">Home</a></li>
+                <li><a href="#" onclick="showCategory('mobile-legends')">Mobile Legends</a></li>
+                <li><a href="#" onclick="showCategory('free-fire')">Free Fire</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="content">
+        <!-- Konten dinamis akan dimuat di sini -->
+    </main>
+
+    <footer>
+        <p>© 2024 Game Store. Semua hak dilindungi.</p>
+    </footer>
+
+    <script>
+        function showCategory(category) {
+            const content = document.getElementById('content');
+            let htmlContent = '';
+
+            if (category === 'home') {
+                htmlContent = `
+                    <h1>Selamat Datang di Game Store</h1>
+                    <p>Temukan game favorit Anda dan layanan top-up di sini!</p>
+                `;
+            } else if (category === 'mobile-legends' || category === 'free-fire') {
+                const items = {
+                    'mobile-legends': {
+                        'top-up': [
+                            { name: 'Top Up 1', price: 'Rp100.000', image: 'ml_topup1.jpg' },
+                            { name: 'Top Up 2', price: 'Rp200.000', image: 'ml_topup2.jpg' },
+                            { name: 'Top Up 3', price: 'Rp300.000', image: 'ml_topup3.jpg' },
+                            { name: 'Top Up 4', price: 'Rp400.000', image: 'ml_topup4.jpg' },
+                            { name: 'Top Up 5', price: 'Rp500.000', image: 'ml_topup5.jpg' }
+                        ],
+                        'akun': [
+                            { name: 'Akun 1', description: 'Akun dengan Skin Eksklusif', price: 'Rp500.000', image: 'ml_akun1.jpg' },
+                            { name: 'Akun 2', description: 'Akun dengan Hero Langka', price: 'Rp700.000', image: 'ml_akun2.jpg' },
+                            { name: 'Akun 3', description: 'Akun dengan Item Premium', price: 'Rp900.000', image: 'ml_akun3.jpg' },
+                            { name: 'Akun 4', description: 'Akun dengan Level Tinggi', price: 'Rp1.100.000', image: 'ml_akun4.jpg' },
+                            { name: 'Akun 5', description: 'Akun dengan Skin Lengkap', price: 'Rp1.300.000', image: 'ml_akun5.jpg' }
+                        ]
+                    },
+                    'free-fire': {
+                        'top-up': [
+                            { name: 'Top Up 1', price: 'Rp100.000', image: 'ff_topup1.jpg' },
+                            { name: 'Top Up 2', price: 'Rp200.000', image: 'ff_topup2.jpg' },
+                            { name: 'Top Up 3', price: 'Rp300.000', image: 'ff_topup3.jpg' },
+                            { name: 'Top Up 4', price: 'Rp400.000', image: 'ff_topup4.jpg' },
+                            { name: 'Top Up 5', price: 'Rp500.000', image: 'ff_topup5.jpg' }
+                        ],
+                        'akun': [
+                            { name: 'Akun 1', description: 'Akun dengan Skin Langka', price: 'Rp500.000', image: 'ff_akun1.jpg' },
+                            { name: 'Akun 2', description: 'Akun dengan Bundle Eksklusif', price: 'Rp700.000', image: 'ff_akun2.jpg' },
+                            { name: 'Akun 3', description: 'Akun dengan Item Premium', price: 'Rp900.000', image: 'ff_akun3.jpg' },
+                            { name: 'Akun 4', description: 'Akun dengan Level Tinggi', price: 'Rp1.100.000', image: 'ff_akun4.jpg' },
+                            { name: 'Akun 5', description: 'Akun dengan Skin Lengkap', price: 'Rp1.300.000', image: 'ff_akun5.jpg' }
+                        ]
+                    }
+                };
+
+                const selectedItems = items[category] || {};
+                const types = ['top-up', 'akun'];
+                htmlContent = `<h1>${category.charAt(0).toUpperCase() + category.slice(1)}</h1>`;
+
+                types.forEach(type => {
+                    htmlContent += `<h2>${type.charAt(0).toUpperCase() + type.slice(1)}</h2>`;
+                    htmlContent += '<div class="product-list">';
+                    selectedItems[type].forEach(item => {
+                        htmlContent += `
+                            <div class="product">
+                                <img src="${item.image}" alt="${item.name}">
+                                <h3>${item.name}</h3>
+                                ${item.description ? `<p>${item.description}</p>` : ''}
+                                <p><strong>${item.price}</strong></p>
+                                <a href="https://wa.me/+6283875819219?text=Saya%20ingin%20membeli%20${encodeURIComponent(item.name)}%20${encodeURIComponent(item.description || '')}" class="buy-button" target="_blank">Beli</a>
+                            </div>
+                        `;
+                    });
+                    htmlContent += '</div>';
+                });
+            }
+
+            content.innerHTML = htmlContent;
+        }
+
+        window.onload = function() {
+            showCategory('home');
+        }
+    </script>
+</body>
+</html>
